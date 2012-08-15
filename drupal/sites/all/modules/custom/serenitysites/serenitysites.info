@@ -1,0 +1,4 @@
+name = Serenity Sites
+description = Custom code for serenitysites.com
+core = 7.x
+
