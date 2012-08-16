@@ -89,12 +89,7 @@
 </div><!--end header-top-->
 <div id="header" class="clearfix"><!--start header--> 
     <?php print render($page['header']); ?>
-<div id="main-menu">
-    <?php 
-	$main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu')); 
-	print drupal_render($main_menu_tree);
-	?>
-</div><!-- end main-menu -->
+
 </div> <!-- /#header -->
 <div id="content-body">
 <div class="breadcrumb"><?php if ($breadcrumb): print $breadcrumb; endif;?></div>

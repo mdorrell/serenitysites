@@ -1,5 +1,45 @@
 <?php
 /**
+ * Implement hook_block_info()
+ */
+function serenitysites_block_info() {
+  $blocks = array();
+  $blocks['sites_main_menu'] = array(
+    'info' => t('Sites Main Menu')
+  );
+  return $blocks;
+}
+
+/**
+ * Implement hook_block_view()
+ */
+function serenitysites_block_view($delta='') {
+  $block = array();
+  switch ($delta) {
+    case 'sites_main_menu':
+      $block['content'] = serenitysites_main_main_block_contents();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Display correct menu for "language"
+ */
+function serenitysites_main_main_block_contents() {
+  global $language;
+
+  $menu_name = 'main-menu';
+  if ($language->language != 'en') {
+    $menu_name = 'menu-main-menu-' . str_replace('.', '-', $language->language);
+  }
+  
+  $main_menu_tree = menu_tree($menu_name); 
+	$content = '<div id="main-menu">' . drupal_render($main_menu_tree) . '</div>';
+  return $content;
+}
+
+/**
  * Implementation of hook_node_view
  */
 function serenitysites_node_view($node, $view_mode, $langcode) {
@@ -60,3 +100,29 @@ function serenitysites_create_language(){
   locale_add_language($langcode, $name, $name, $direction, $domain, $prefix);
     
 }
+
+/**
+ * Create initial nodes for new user site
+ */
+function serenitysites_setup_site() {
+  serenitysites_setup_node('about_us', 'About Us', 1, 'about-us');
+  serenitysites_setup_node('directions', 'Directions', 1, 'directions');
+  serenitysites_setup_node('page', 'Pre-Arrangements', 1, 'pre-arrangements');
+}
+
+/**
+ * Create simple node
+ */
+function serenitysites_setup_node($type, $title, $uid, $path) {
+  $node = new stdClass();
+  $node->type = $type;
+  node_object_prepare($node);
+
+  $node->title = $title;
+  $node->language = 'u-' . $uid;
+  $node->path = array('alias' => $path);
+  $node->uid = $uid;
+  node_save($node);
+}
+
+
