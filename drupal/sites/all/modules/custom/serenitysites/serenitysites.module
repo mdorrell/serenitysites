@@ -105,9 +105,10 @@ function serenitysites_create_language(){
  * Create initial nodes for new user site
  */
 function serenitysites_setup_site() {
-  serenitysites_setup_node('about_us', 'About Us', 1, 'about-us');
-  serenitysites_setup_node('directions', 'Directions', 1, 'directions');
-  serenitysites_setup_node('page', 'Pre-Arrangements', 1, 'pre-arrangements');
+  $uid = 1;
+  serenitysites_setup_node('about_us', 'About Us', $uid, 'about-us');
+  serenitysites_setup_node('directions', 'Directions', $uid, 'directions');
+  serenitysites_setup_node('page', 'Pre-Arrangements', $uid, 'pre-arrangements');
 }
 
 /**
@@ -125,4 +126,67 @@ function serenitysites_setup_node($type, $title, $uid, $path) {
   node_save($node);
 }
 
+/**
+ * Initialize a menu for a new site
+ */
+function serenitysites_setup_menu($uid, $language) {
+  $menu_name = 'menu-main-menu-u-' . $uid;
+  $menu = array(
+    'menu_name' => $menu_name,
+    'title' => 'Main Menu (u-' . $uid . ')',
+    'language' => $language,
+    'i18n_mode' => 2,
+  );
+  menu_save($menu);
+
+  $link = array(
+    'link_title' => t('Home'),
+    'link_path' => drupal_get_normal_path('<front>', $language),
+    'menu_name' => $menu_name,
+    'weight' => 0
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('About Us'),
+    'link_path' => drupal_get_normal_path('about-us', $language),
+    'menu_name' => $menu_name,
+    'weight' => 1
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Obituaries'),
+    'link_path' => drupal_get_normal_path('obituaries', $language),
+    'menu_name' => $menu_name,
+    'weight' => 2
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Directions'),
+    'link_path' => drupal_get_normal_path('directions', $language),
+    'menu_name' => $menu_name,
+    'weight' => 3
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Pre-Arrangements'),
+    'link_path' => drupal_get_normal_path('pre-arrangements', $language),
+    'menu_name' => $menu_name,
+    'weight' => 4
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Contact Us'),
+    'link_path' => drupal_get_normal_path('contact-us', $language),
+    'menu_name' => $menu_name,
+    'weight' => 5
+  );
+  menu_link_save($link);
+    
+  menu_cache_clear_all();
+}
 
