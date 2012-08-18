@@ -8,14 +8,22 @@
   margin-bottom:1.4em;
 }
 
-.field-collection-view {
+.field-collection-container {
+  border-top:2px solid #D3D7D9;
   border-bottom:2px solid #D3D7D9;
 }
 
-.field-items .field-collection-view:first-child {
-  border-top:2px solid #D3D7D9;
+.field-collection-view {
+  border-bottom:1px solid #D3D7D9;
 }
 
+.field-collection-view-final {
+  border-bottom:none;
+}
+
+/**
+ * About us
+ */
 .field-name-field-about-person-image {
   float:left;
   margin-right:10px;
@@ -25,4 +33,21 @@
   font-weight:bold;
   font-size:1.5em;
   margin-bottom:10px;
+}
+
+/**
+ * Directions
+ */
+.node-type-directions .directions-wrapper {
+  width:300px; 
+  float:left;
+  margin-right:25px;
+}
+
+.node-type-directions .directions-wrapper .field-collection-container:first-child {
+  margin-botton:0px;
+  border-bottom:0px;
+} 
+.field-name-field-directions-label {
+  font-weight: bold;
 }
