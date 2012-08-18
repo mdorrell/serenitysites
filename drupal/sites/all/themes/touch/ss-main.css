@@ -1,0 +1,28 @@
+.breadcrumb {
+  display:none;
+}
+#main .content {
+  color:#323232;
+}
+#main .content p {
+  margin-bottom:1.4em;
+}
+
+.field-collection-view {
+  border-bottom:2px solid #D3D7D9;
+}
+
+.field-items .field-collection-view:first-child {
+  border-top:2px solid #D3D7D9;
+}
+
+.field-name-field-about-person-image {
+  float:left;
+  margin-right:10px;
+}
+
+.field-name-field-about-person-name {
+  font-weight:bold;
+  font-size:1.5em;
+  margin-bottom:10px;
+}

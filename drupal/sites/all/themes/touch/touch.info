@@ -4,6 +4,7 @@ package = Core
 core = 7.x
 engine = phptemplate
 stylesheets[all][] = style.css
+stylesheets[all][] = ss-main.css
 scripts[] = js/scrolltopcontrol.js
 regions[search_box]     = Search Box
 regions[sidebar_first]  = First Sidebar
