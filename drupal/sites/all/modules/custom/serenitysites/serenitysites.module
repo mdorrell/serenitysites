@@ -93,6 +93,16 @@ function serenitysites_theme($existing, $type, $theme, $path) {
       'variables' => array('row' => NULL, 'from_popup' => FALSE),
       'file' => 'serenitysites.theme.inc',
     ),
+    'list_modal' => array(
+      'render element' => 'elements',
+      'path' => $path . '/templates',
+      'template' => 'list-modal',
+      'variables' => array(
+        'modal_class_id' => NULL,
+        'title' => NULL,
+        'content' => NULL,
+      ),
+    ),
   );
 }
 

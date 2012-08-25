@@ -41,8 +41,8 @@ function serenitysites_obit_archive_block_contents() {
   if ($total_count > 5) {
     $content .= '<a href="#" class="show-more">View All</a>';
     $modal_result = $modal_query->execute();
-    $content .= theme('ul_list_columns', array('rows' => $modal_result, 'numcol' => 4, 'link_theme' => 'obit_archive_link'));
-          
+    $modal_content = theme('ul_list_columns', array('rows' => $modal_result, 'numcol' => 4, 'link_theme' => 'obit_archive_link'));
+    $content .= theme('list_modal', array('modal_class_id' => 'obit-archive-modal_id', 'title' => t('Obituary Archives'), 'content' => $modal_content));
   }
    
   return $content;
