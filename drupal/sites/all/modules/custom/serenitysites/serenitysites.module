@@ -1,11 +1,21 @@
 <?php
 /**
+ * Implemenation of hook_init
+ */
+function serenitysites_init() {
+  drupal_add_css(drupal_get_path('module', 'serenitysites') . '/css/ss-main.css'); 
+}
+ 
+/**
  * Implement hook_block_info()
  */
 function serenitysites_block_info() {
   $blocks = array();
   $blocks['sites_main_menu'] = array(
     'info' => t('Sites Main Menu')
+  );
+  $blocks['obit_archive'] = array(
+    'info' => t('Obituary Archives')
   );
   return $blocks;
 }
@@ -18,6 +28,10 @@ function serenitysites_block_view($delta='') {
   switch ($delta) {
     case 'sites_main_menu':
       $block['content'] = serenitysites_main_main_block_contents();
+      break;
+    case 'obit_archive':
+      module_load_include('inc', 'serenitysites', 'serenitysites.obit');
+      $block['content'] = serenitysites_obit_archive_block_contents();
       break;
   }
   return $block;
@@ -39,6 +53,7 @@ function serenitysites_main_main_block_contents() {
   return $content;
 }
 
+
 /**
  * Implementation of hook_node_view
  */
@@ -58,6 +73,30 @@ function serenitysites_preprocess_field(&$vars, $hook) {
     $vars['items'][0]['#markup'] = '<ul><li>' . str_replace("\n", '</li><li>', $vars['items'][0]['#markup'] . '</ul>');
   }
 }
+
+
+/**
+ * Implements hook_theme().
+ */
+function serenitysites_theme($existing, $type, $theme, $path) {
+  return array(
+    'ul_list_columns' => array(
+      'render element' => 'elements',
+      'file' => 'serenitysites.theme.inc',
+      'variables' => array(
+        'rows' => NULL,
+        'numcol' => NULL,
+        'link_theme' => NULL,
+      ),
+    ),
+    'obit_archive_link' => array(
+      'variables' => array('row' => NULL, 'from_popup' => FALSE),
+      'file' => 'serenitysites.theme.inc',
+    ),
+  );
+}
+
+
 /**
  * Create new language, used to distinguish domains
  */

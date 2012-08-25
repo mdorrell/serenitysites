@@ -39,9 +39,9 @@
  * Directions
  */
 .node-type-directions .directions-wrapper {
-  width:300px; 
+  width:275px; 
   float:left;
-  margin-right:25px;
+  margin-right:20px;
 }
 
 .node-type-directions .directions-wrapper .field-collection-container:first-child {
@@ -50,4 +50,36 @@
 } 
 .field-name-field-directions-label {
   font-weight: bold;
+}
+
+/**
+ * Generic Page
+ */
+.field-name-field-section-image {
+  float:left;
+  margin-right:20px;
+  margin-bottom:5px;
+}
+.field-items .odd .field-name-field-section-image {
+  float:right;
+  margin-right:0px;
+  margin-left:25px;
+}
+.field-name-field-section-header {
+  font-weight:bold;
+  font-size:1.5em;
+  margin-bottom:10px;
+}
+
+
+/**
+ * Obituaries
+ */
+.view-obituaries .node-teaser {
+  float:none;
+  height:auto;
+  width:auto;
+  margin-bottom:25px;
+  
+  
 }
