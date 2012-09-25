@@ -1,11 +1,5 @@
 <?php
-/**
- * Implemenation of hook_init
- */
-function serenitysites_init() {
-  drupal_add_css(drupal_get_path('module', 'serenitysites') . '/css/ss-main.css'); 
-}
- 
+
 /**
  * Implement hook_block_info()
  */

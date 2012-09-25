@@ -21,6 +21,25 @@
   border-bottom:none;
 }
 
+.link-button {
+  -webkit-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+  -moz-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+  box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+  border-bottom-color:#333;
+  border:1px solid #999999;
+  background-color:#cccccc;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  color:#333;
+  font-family:'Verdana',Arial,sans-serif;
+  font-size:14px;
+  text-shadow:#b2e2f5 0 1px 0;
+  padding:5px
+}
+a:hover{
+  color:#000000;
+}
 /**
  * About us
  */
@@ -79,7 +98,65 @@
   float:none;
   height:auto;
   width:auto;
-  margin-bottom:25px;
-  
-  
+  margin-bottom:25px; 
+}
+.node-type-obituary .field-name-field-obit-image{
+  float:left;
+  margin: 0px 10px 10px 0px;
+}
+.node-type-obituary .field-label {
+  float:left;
+  width:150px;
+}
+.node-type-obituary .field-type-datetime {
+  margin-bottom:10px;
+}
+.node-type-obituary .field-name-field-obit-description {
+  margin-top:20px;
+}
+
+/**
+ * List Blocks
+ */
+.list-modal {
+  position:fixed;
+  display:none;
+  border:2px black solid;
+  top:100px;
+  left:25%;
+  width:50%;
+  min-height:250px;
+  background-color:#ffffff;
+  padding:0px 20px 20px 20px;
+
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: 3px 3px 4px #000;
+
+  -webkit-box-shadow: 5px 5px 20px #000;
+  box-shadow: 5px 5px 20px #000;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+.list-modal h2{
+  float:left;
+  margin-top:0px;
+}
+.list-modal .list-modal-close {
+  background: url(../img/icon-close.png);
+  background-size:100%;
+  height:25px;
+  width:25px;
+  display:block;
+  margin-top:6px;
+  float:right;
+  text-indent:-9999px;
+}
+.list-modal .list-modal-content {
+  clear:left;
+  border-top: 1px solid #cccccc;
 }

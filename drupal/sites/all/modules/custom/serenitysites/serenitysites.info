@@ -2,3 +2,5 @@ name = Serenity Sites
 description = Custom code for serenitysites.com
 core = 7.x
 
+stylesheets[all][] = css/ss-main.css
+scripts[] = js/ss-main.js
