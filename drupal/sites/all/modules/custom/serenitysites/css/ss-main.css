@@ -41,6 +41,15 @@ a:hover{
   color:#000000;
 }
 /**
+ * Home
+ */
+.node-type-homepage .field-name-body {
+  float: left;
+  margin-right: 20px;
+  width: 600px;
+}
+
+/**
  * About us
  */
 .field-name-field-about-person-image {

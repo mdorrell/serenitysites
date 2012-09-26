@@ -27,6 +27,41 @@ function serenitysites_directions_node_view(&$node) {
 }
 
 /**
+ * hook_block callback for map block
+ */
+function serenitysites_map_block_contents() {
+  global $language;
+  $mapwidth = 250;
+  $mapheight = 200;
+  $content = '';
+
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->condition('n.type', 'directions')
+    ->condition('n.status', '1')
+    ->condition('n.language', $language->language);
+  $nid = $query->execute()->fetchField();
+  $node = node_load($nid);
+
+  // Get address and map image for it
+  $address = serenitysites_get_address($node->field_directions_address[LANGUAGE_NONE][0]['value']);
+  if (!empty($address)) {
+    $address = implode(' ', $address);
+    $coordinates = locationmap_geocode_for_address($address);
+    $url = serenitysites_map_static_image_url($coordinates[0], $coordinates[1], $mapwidth, $mapheight, 13);
+
+    // create the content
+    $content = '<h2>Directions</h2>';
+    $content .= l('<img src="' . $url . '" alt="Location map" />', 'node/' . $nid, array('html' => TRUE));
+
+    $address_field = $output = field_view_field('node', $node, 'field_directions_address');
+    $content .= render($address_field);
+  }
+
+  return $content;
+}
+
+/**
  * Get address from the fieldcollection id
  */
 function serenitysites_get_address($field_collection_id) {
@@ -42,4 +77,15 @@ function serenitysites_get_address($field_collection_id) {
     );
   }
   return $address;
+}
+
+/**
+ * Get static image url
+ */
+function serenitysites_map_static_image_url($latitude, $longitude, $width = 200, $height = 150, $zoom = 14) {
+  $image_url = 'http://maps.googleapis.com/maps/api/staticmap?zoom=' . $zoom;
+  $image_url .= "&amp;size={$width}x{$height}";
+  $image_url .= '&amp;markers=' . $latitude . ',' . $longitude;
+  $image_url .= "&amp;sensor=false";
+  return($image_url);
 }

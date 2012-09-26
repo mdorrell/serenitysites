@@ -11,6 +11,9 @@ function serenitysites_block_info() {
   $blocks['obit_archive'] = array(
     'info' => t('Obituary Archives')
   );
+  $blocks['serenity_map'] = array(
+    'info' => t('Map')
+  );
   return $blocks;
 }
 
@@ -26,6 +29,10 @@ function serenitysites_block_view($delta='') {
     case 'obit_archive':
       module_load_include('inc', 'serenitysites', 'serenitysites.obit');
       $block['content'] = serenitysites_obit_archive_block_contents();
+      break;
+    case 'serenity_map':
+      module_load_include('inc', 'serenitysites', 'serenitysites.directions');
+      $block['content'] = serenitysites_map_block_contents();
       break;
   }
   return $block;
