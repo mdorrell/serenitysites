@@ -1,0 +1,5 @@
+name = Serenity User
+description = User Registration for serenitysites.com
+core = 7.x
+package = Serenity Sites
+

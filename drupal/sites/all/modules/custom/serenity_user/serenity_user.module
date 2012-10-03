@@ -1,0 +1,133 @@
+<?php
+/**
+ * Implementation of hook_form_alter
+ */
+function serenity_user_form_alter(&$form, $form_state, $form_id) {
+  dsm($form);
+}
+
+/**
+ * Implementation of hook_user_insert
+ */
+function serenity_user_user_insert(&$edit, $account, $category) {
+  // Give user content admin role
+  $edit['roles'][4] = 'content admin';
+
+  // Create new "language"
+  $language = serenity_user_create_language($edit);
+  $edit['language'] = $language;
+  $edit['i18n_access'][$language] = 1;
+
+  // Initialize site
+  serenity_user_setup_site($edit['uid'], $language);
+  serenity_user_setup_menu($edit['uid'], $language);
+
+  dsm("insert");
+  dsm($edit);
+  dsm($account);
+  dsm($category);
+}
+
+/**
+ * Create new language, used to distinguish domains
+ */
+function serenity_user_create_language($user){
+  $langcode = 'u-' . $user['uid'];
+  $name = $user['name'];
+  $direction = 0;
+  $domain = '';
+  $prefix = $name;
+  locale_add_language($langcode, $name, $name, $direction, $domain, $prefix);
+
+  return $langcode;
+}
+
+/**
+ * Create initial nodes for new user site
+ */
+function serenity_user_setup_site($uid, $language) {
+  serenity_user_setup_node('homepage', 'Home', $uid, 'home', $language);
+  serenity_user_setup_node('about_us', 'About Us', $uid, 'about-us', $language);
+  serenity_user_setup_node('directions', 'Directions', $uid, 'directions', $language);
+  serenity_user_setup_node('page', 'Pre-Arrangements', $uid, 'pre-arrangements', $language);
+}
+
+/**
+ * Create simple node
+ */
+function serenity_user_setup_node($type, $title, $uid, $path, $language) {
+  $node = new stdClass();
+  $node->type = $type;
+  node_object_prepare($node);
+
+  $node->title = $title;
+  $node->language = $language;
+  $node->path = array('alias' => $path);
+  $node->uid = $uid;
+  node_save($node);
+}
+
+/**
+ * Initialize a menu for a new site
+ */
+function serenity_user_setup_menu($uid, $language) {
+  $menu_name = 'menu-main-menu-u-' . $uid;
+  $menu = array(
+    'menu_name' => $menu_name,
+    'title' => 'Main Menu (u-' . $uid . ')',
+    'language' => $language,
+    'i18n_mode' => 2,
+  );
+  menu_save($menu);
+
+  $link = array(
+    'link_title' => t('Home'),
+    'link_path' => drupal_get_normal_path('<front>', $language),
+    'menu_name' => $menu_name,
+    'weight' => 0
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('About Us'),
+    'link_path' => drupal_get_normal_path('about-us', $language),
+    'menu_name' => $menu_name,
+    'weight' => 1
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Obituaries'),
+    'link_path' => drupal_get_normal_path('obituaries', $language),
+    'menu_name' => $menu_name,
+    'weight' => 2
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Directions'),
+    'link_path' => drupal_get_normal_path('directions', $language),
+    'menu_name' => $menu_name,
+    'weight' => 3
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Pre-Arrangements'),
+    'link_path' => drupal_get_normal_path('pre-arrangements', $language),
+    'menu_name' => $menu_name,
+    'weight' => 4
+  );
+  menu_link_save($link);
+  
+  $link = array(
+    'link_title' => t('Contact Us'),
+    'link_path' => drupal_get_normal_path('contact-us', $language),
+    'menu_name' => $menu_name,
+    'weight' => 5
+  );
+  menu_link_save($link);
+    
+  menu_cache_clear_all();
+}
+

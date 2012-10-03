@@ -49,6 +49,19 @@ a:hover{
   width: 600px;
 }
 
+.field-name-field-home-widgets {
+  margin-left:600px;
+}
+
+.field-name-field-home-widgets h2 {
+  border-bottom:#cccccc 2px solid;
+}
+.field-name-field-home-widgets .field-name-field-directions-address {
+  margin-left:20px;
+}
+.field-name-field-home-widgets .field-collection-container {
+  border:none;
+}
 /**
  * About us
  */
