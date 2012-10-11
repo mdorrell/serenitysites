@@ -1,4 +1,16 @@
 <?php
+/**
+ * Implementation of hook_init
+ */
+function serenitysites_init() {
+  global $theme;
+  $admin_theme = variable_get('admin_theme');
+
+  if ($theme != $admin_theme) {
+    drupal_add_css(drupal_get_path('module', 'serenitysites') . '/css/ss-main.css');
+    drupal_add_js(drupal_get_path('module', 'serenitysites') . '/js/ss-main.js');
+  }
+}
 
 /**
  * Implement hook_block_info()
@@ -92,4 +104,14 @@ function serenitysites_theme($existing, $type, $theme, $path) {
   );
 }
 
-
+/**
+ * Implementation of hook_views_query_alter
+ */
+function serenitysites_views_query_alter(&$view, &$query) {
+  // Limit media browser query to fields folder
+  if ($view->name == 'media_default') {
+    $default_path = check_plain($_GET['file_directory']);
+    $path_suffix = str_replace('[current-user:name]', '', $default_path); // home/header
+    $query->where[1]['conditions'][2]['value'] = 'public://library' . $path_suffix;
+  }
+}
