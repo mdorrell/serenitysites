@@ -21,11 +21,6 @@ function serenity_user_user_insert(&$edit, $account, $category) {
   // Initialize site
   serenity_user_setup_site($edit['uid'], $language);
   serenity_user_setup_menu($edit['uid'], $language);
-
-  dsm("insert");
-  dsm($edit);
-  dsm($account);
-  dsm($category);
 }
 
 /**
